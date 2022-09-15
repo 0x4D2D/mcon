@@ -7,6 +7,7 @@ import me.x150.ReffyClassView;
 import me.x150.ReffyMethodView;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 
@@ -72,6 +73,7 @@ public class ClientHandler {
             case "playerSetAbilities" -> {
                 Class <?> clientPlayer = mc.client.getField("field_1724").get().get().getClass();
                 ReffyClassView playerAbilities = ReffyClassView.from(ReffyClassView.from(clientPlayer.getSuperclass().getSuperclass()).getMethod("method_31549").invoke().get());
+                playerAbilities.addInstance(ReffyClassView.from(clientPlayer.getSuperclass().getSuperclass()).getMethod("method_31549").invoke().get()); //god help me
                 switch(args[1]){
                     case "allowFlying" -> {
                         if(args[2] == "True"){
