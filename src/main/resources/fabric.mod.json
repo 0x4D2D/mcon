@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "mcon",
+  "version": "${version}",
+
+  "name": "MCON",
+  "description": "Minecraft Console interpreter",
+  "authors": [
+    "saturn5Vfive"
+  ],
+  "contact": {
+    "homepage": "https://saturns.tech/",
+    "sources": "https://github.com/saturn5Vfive/mcon"
+  },
+
+  "license": "CC0-1.0",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "tech.saturns.mcon.ModMain"
+    ]
+  },
+
+  "depends": {
+    "fabricloader": ">=0.14.6",
+    "minecraft": "~1.18.2",
+    "java": ">=17"
+  }
+}
