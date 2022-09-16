@@ -6,15 +6,15 @@ import java.lang.instrument.Instrumentation;
 import java.net.InetAddress;
 import java.net.Socket;
 
-import me.x150.ReffyClassView;
+import tech.saturns.mcon.ipc.Minecraft;
 
 public class ModMain {
 
-    public static Minecraft mc;
+    public static Minecraft instance;
 
     public static void agentmain(String aargs, Instrumentation inst) {
 
-        mc = new Minecraft(inst);
+        instance = new Minecraft(inst);
 
         new Thread(() -> {
             try{

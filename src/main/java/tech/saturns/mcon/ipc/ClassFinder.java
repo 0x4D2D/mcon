@@ -1,4 +1,4 @@
-package tech.saturns.mcon;
+package tech.saturns.mcon.ipc;
 
 public class ClassFinder {
 
