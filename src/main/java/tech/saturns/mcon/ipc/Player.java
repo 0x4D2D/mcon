@@ -1,38 +1,44 @@
 package tech.saturns.mcon.ipc;
 
-import me.x150.ReffyClassView;
+import io.github.rybot666.refutils.RUClass;
+import io.github.rybot666.refutils.RUInstance;
+import io.github.rybot666.refutils.RefUtilsException;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.item.ItemStack;
 
 public class Player {
 
-    ReffyClassView player;
+    RUClass staticplayer;
+    Object instplayer;
+    RUInstance player;
     Minecraft instance;
 
-    public Player(ReffyClassView playerclass, Minecraft instance){
-        this.player = playerclass;
+    public Player(RUClass playerclass, Minecraft instance, Object baseclass){
+        this.staticplayer = playerclass;
         this.instance = instance;
+        this.player = staticplayer.instanceFrom(baseclass);
+        this.instplayer = baseclass;
     }
 
 
-    public void sendChatMessage(String message){
-        player.getMethod("method_3142", String.class).invoke(message);
+    public void sendChatMessage(String message) throws RefUtilsException{
+        player.invoke("method_3142", message);
     }
 
-    public ReffyClassView getMainHandStack(){
+    public RUClass getMainHandStack() throws RefUtilsException{
         //MinecraftClient.getInstance().player.getInventory().getMainHandStack().getNbt().asString();
-        ReffyClassView inventory = ReffyClassView.from(player.getMethod("method_31548").invoke().get());
-        ReffyClassView mainhandstack = ReffyClassView.from(inventory.getMethod("method_7391").invoke().get());
+        RUClass inventory = RUClass.of(player.invoke("method_31548").getClass());
+        RUClass mainhandstack = RUClass.of(inventory.invokeStatic("method_7391").getClass());
         return mainhandstack;
     }
 
 
-    public ReffyClassView getReffy(){
-        return player;
+    public RUClass getRuClass(){
+        return staticplayer;
     }
 
-    public Class<?> getRawClassInstance(){
-        return instance.getClient().getReffy().getField("field_1724").get().get().getClass();
+    public RUInstance getDynamicPlayer(){
+        return player;
     }
 }

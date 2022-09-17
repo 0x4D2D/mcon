@@ -10,6 +10,8 @@ public class CommandHandler {
     static {
         registry.add(new HelpCmd());
         registry.add(new GetNbtCmd());
+        registry.add(new SendChatCmd());
+        registry.add(new SendMessageCmd());
     }
 
     public static List<Command> getCommands(){

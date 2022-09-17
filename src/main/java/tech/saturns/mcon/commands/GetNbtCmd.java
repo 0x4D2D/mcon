@@ -1,6 +1,7 @@
 package tech.saturns.mcon.commands;
 
-import me.x150.ReffyClassView;
+
+import io.github.rybot666.refutils.RUClass;
 
 public class GetNbtCmd extends Command{
 
@@ -10,11 +11,12 @@ public class GetNbtCmd extends Command{
     
     @Override
     public String call(String args[]){
-        ReffyClassView mainhandstack = instance.getPlayer().getMainHandStack();
-        ReffyClassView nbt = ReffyClassView.from(mainhandstack.getMethod("method_7969").invoke().get());
-        if(nbt == null) return "NBT: null";
-        String stringnbt = (String) nbt.getMethod("method_10558").invoke().get();
-        return "NBT: " + stringnbt;
+        return "real";
+        //RUClass mainhandstack = instance.getPlayer().getMainHandStack();
+        //RUClass nbt = RUClass.of(mainhandstack.getMethod("method_7969").invoke().get());
+        //if(nbt == null) return "NBT: null";
+        //String stringnbt = (String) nbt.getMethod("method_10558").invoke().get();
+        //return "NBT: " + stringnbt;
     }
 
 }

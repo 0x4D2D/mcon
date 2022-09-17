@@ -1,7 +1,11 @@
 package tech.saturns.mcon.ipc;
 
 import java.lang.instrument.Instrumentation;
-import me.x150.ReffyClassView;
+
+import io.github.rybot666.refutils.RUClass;
+import io.github.rybot666.refutils.RUInstance;
+import io.github.rybot666.refutils.RefUtilsException;
+import net.minecraft.client.MinecraftClient;
 
 
 public class Minecraft {
@@ -17,20 +21,23 @@ public class Minecraft {
     }
 
 
-    public Client getClient(){
-        ReffyClassView minecraftClientStatic = ReffyClassView.from(cf.find("net.minecraft.class_310"));
-        ReffyClassView minecraftClientInstance = ReffyClassView.from(minecraftClientStatic.getMethod("method_1551").invoke().get());
-        return new Client(minecraftClientInstance, this);
+    public Client getClient() throws RefUtilsException{
+        RUClass minecraftClientStatic = RUClass.of(cf.find("net.minecraft.class_310"));
+        RUClass minecraftClientInstance = RUClass.of(minecraftClientStatic.invokeStatic("method_1551").getClass());
+        return new Client(minecraftClientInstance, this, minecraftClientStatic.invokeStatic("method_1551"));
     }
 
 
-    public Player getPlayer(){
-        ReffyClassView playerInstance = ReffyClassView.from(getClient().getReffy().getField("field_1724").get().get());
-        return new Player(playerInstance, this);
+    public Player getPlayer() throws RefUtilsException{
+        RUInstance minecraftclient = getClient().getRuClass().instanceFrom(getClient().getInstance());
+        RUClass playerInstance = RUClass.of(minecraftclient.getField("field_1724").getClass());
+        return new Player(playerInstance, this, minecraftclient.getField("field_1724"));
     }
 
-    public ReffyClassView getSession(){
-        ReffyClassView session = ReffyClassView.from(getClient().getReffy().getField("field_1726").get().get());
-        return session;
+    public RUInstance getSession() throws RefUtilsException{
+        RUInstance minecraftclient = getClient().getRuClass().instanceFrom(getClient().getInstance());
+        RUClass session = RUClass.of(minecraftclient.invoke("method_1548").getClass());
+        RUInstance sessioninst = session.instanceFrom(minecraftclient.invoke("method_1548"));
+        return sessioninst;
     }
 }

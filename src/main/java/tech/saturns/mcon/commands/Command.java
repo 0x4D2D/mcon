@@ -14,7 +14,7 @@ public class Command {
     }
 
 
-    public String call(String[] args){
+    public String call(String[] args) throws Exception{
         return "Method call in command not overridden";
     }
 
