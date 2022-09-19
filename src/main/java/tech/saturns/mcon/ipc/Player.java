@@ -26,16 +26,12 @@ public class Player {
         player.invoke("method_3142", message);
     }
 
-    public RUClass getMainHandStack() throws RefUtilsException{
-        //MinecraftClient.getInstance().player.getInventory().getMainHandStack().getNbt().asString();
-        RUClass inventory = RUClass.of(player.invoke("method_31548").getClass());
-        RUClass mainhandstack = RUClass.of(inventory.invokeStatic("method_7391").getClass());
-        return mainhandstack;
-    }
-
-
     public RUClass getRuClass(){
         return staticplayer;
+    }
+
+    public Object getPlayerCreationInstance(){
+        return instplayer;
     }
 
     public RUInstance getDynamicPlayer(){

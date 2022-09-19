@@ -13,10 +13,11 @@ public class SendMessageCmd extends Command{
     
     @Override
     public String call(String args[]) throws RefUtilsException{
-        RUClass textV = RUClass.of(instance.getClassByName("net.minecraft.class_2561"));
+        Class<?> textL = instance.getClassByName("net.minecraft.class_2561");
+        RUClass textV = RUClass.of(textL);
         Text textobject = (Text) textV.invokeStatic("method_30163", String.join(" ", args));
         instance.getPlayer().getDynamicPlayer().invoke("method_7353", textobject, false);
         return "sent " + String.join(" ", args);
     }
-
+ 
 }

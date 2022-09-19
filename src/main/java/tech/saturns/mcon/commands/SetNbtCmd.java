@@ -1,16 +1,18 @@
 package tech.saturns.mcon.commands;
 
 
+import io.github.rybot666.refutils.ClassObject;
 import io.github.rybot666.refutils.RUClass;
 import io.github.rybot666.refutils.RUInstance;
 import io.github.rybot666.refutils.RefUtilsException;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.StringNbtReader;
 
-public class GetNbtCmd extends Command{
+public class SetNbtCmd extends Command{
 
-    public GetNbtCmd() {
-        super("viewNbt");
+    public SetNbtCmd() {
+        super("setNbt");
     }
     
     @Override
@@ -24,13 +26,12 @@ public class GetNbtCmd extends Command{
         RUInstance mainHandItemStack = itemStack.instanceFrom(mainHandStack); //instance it into item stack
         
 
-        Object thing = mainHandItemStack.invoke("method_7969"); //.getNbt() method
-        if(thing != null){
-            return "NBT: " + thing.toString();
-        }
-        return "NBT: null";
+        RUClass stringNbtReader = RUClass.of(instance.getClassByName("net.minecraft.class_2522"));
+        Object compoundTag = stringNbtReader.invokeStatic("method_10718", String.join(" ", args));
 
+        mainHandItemStack.invokeSpecific("method_7980", new ClassObject(instance.getClassByName("net.minecraft.class_2487"), compoundTag)); //.setNbt() method
 
+        return "Updated MainHand NBT!";
     }
 
 }

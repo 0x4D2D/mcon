@@ -117,4 +117,34 @@ public class Utils {
             throw new RefUtilsException(String.format("Exception was thrown by %s", name), e.getCause());
         }
     }
+
+
+        /**
+         * idk how to write these so enjoy a smily face :D
+     */
+    public static Object invokeMethodSpecific(Class<?> clazz, Object target, String name, ClassObject... args) throws RefUtilsException {
+        List<Class<?>> argTypes = new ArrayList<>();
+
+        for (ClassObject obj: args) {
+            argTypes.add(obj.getClazz());
+        }
+
+        Method method = Utils.getMethod(clazz, name, argTypes.toArray(new Class<?>[0]));
+
+        if (target == null && !Modifier.isStatic(method.getModifiers())) {
+            throw new RefUtilsException(String.format("Method %s is not static!", name));
+        }
+
+        try {
+            List<Object> objargs = new ArrayList<>();
+            for(ClassObject obj : args){
+                objargs.add(obj.getObject());
+            }
+            return method.invoke(target, objargs.toArray());
+        } catch (IllegalAccessException e) {
+            throw new RefUtilsException(String.format("Missing permission to access method %s", name));
+        } catch (InvocationTargetException e) {
+            throw new RefUtilsException(String.format("Exception was thrown by %s", name), e.getCause());
+        }
+    }
 }

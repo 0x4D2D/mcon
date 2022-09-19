@@ -12,6 +12,10 @@ public class CommandHandler {
         registry.add(new GetNbtCmd());
         registry.add(new SendChatCmd());
         registry.add(new SendMessageCmd());
+        registry.add(new GotoCmd());
+        registry.add(new VelCmd());
+        registry.add(new FlyCmd());
+        registry.add(new SetNbtCmd());
     }
 
     public static List<Command> getCommands(){

@@ -25,6 +25,10 @@ public class RUInstance<T> {
         return Utils.invokeMethod(this.owner.getClazz(), this.obj, name, args);
     }
 
+    public Object invokeSpecific(String name, ClassObject... args) throws RefUtilsException {
+        return Utils.invokeMethodSpecific(this.owner.getClazz(), this.obj, name, args);
+    }
+
     /**
      * Gets a field from this class.
      * @param name The field name.
